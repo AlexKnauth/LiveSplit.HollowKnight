@@ -200,7 +200,8 @@ namespace LiveSplit.HollowKnight
             }
             if (mem.HeroTransitionState() != HeroTransitionState.WAITING_TO_TRANSITION 
                 || mem.GameState() is GameState.EXITING_LEVEL or GameState.LOADING
-                || mem.SceneName() != mem.NextSceneName()) {
+                || mem.SceneName() != mem.NextSceneName()
+                || mem.PlayerData<bool>(Offset.travelling)) {
                 // In transition
                 TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
                 DungDefenderAwakeConvoOnEntry = mem.PlayerData<bool>(Offset.dungDefenderAwakeConvo);
