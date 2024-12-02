@@ -209,7 +209,7 @@ namespace LiveSplit.HollowKnight {
         VesselFragment7,
         [Description("Vessel Fragment 8 (Fragment)"), ToolTip("Splits when getting 8th Soul Vessel Fragment")]
         VesselFragment8,
-        [Description("Soul Vessel 3 (Upgrade)"), ToolTip("Splits when upgrading to 3 Soul Vessels (9 Soul Vessel Fragments")]
+        [Description("Soul Vessel 3 (Upgrade)"), ToolTip("Splits when upgrading to 3 Soul Vessels (9 Soul Vessel Fragments)")]
         Vessel3,
 
         [Description("Brooding Mawlek Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard from Brooding Mawlek")]
@@ -777,7 +777,7 @@ namespace LiveSplit.HollowKnight {
         TransClaw,
         [Description("Has Vengeful Spirit (Transition)"), ToolTip("Splits on transition after Vengeful Spirit acquired")]
         TransVS,
-        [Description("Has Shade Soul (Transition)"), ToolTip("Splits on transition after Shade Soul acquired (Room Dupe safe")]
+        [Description("Has Shade Soul (Transition)"), ToolTip("Splits on transition after Shade Soul acquired (Room Dupe safe)")]
         TransShadeSoul,
         [Description("Has Shade Soul TE NMMS (Transition)"), ToolTip("Splits on Spire bridge entry after Shade Soul acquired\nonly works in Ruins1_05 to Ruins1_18 in the TE NMMS dupe")]
         TransShadeSoulTENMMS,
