@@ -813,7 +813,7 @@ namespace LiveSplit.HollowKnight {
         WaterwaysEntry,
         [Description("White Palace Entry (Transition)"), ToolTip("Splits when entering the first White Palace scene")]
         WhitePalaceEntry,
-        [Description("City Toll Bench Room (Transition)"), ToolTip("Splits when entiering the city toll bench room")]
+        [Description("City Toll Bench Room (Transition)"), ToolTip("Splits when entering the city toll bench room")]
         EnterCityTollBenchRoom,
 
         [Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
