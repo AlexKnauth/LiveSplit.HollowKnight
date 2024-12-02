@@ -597,14 +597,6 @@ namespace LiveSplit.HollowKnight {
                     shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2
                         && mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL;
                     break;
-                // TODO: test new TransShadeSoul timing against old TransShadeSoul timing below:
-                // case SplitName.TransShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2 && nextScene != currScene; break;
-
-                case SplitName.TransShadeSoulTENMMS: // this probably only works in a dupe
-                    shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2
-                        && currScene.StartsWith("Ruins1_05")
-                        && nextScene.Equals("Ruins1_18");
-                    break;
                 case SplitName.AnyTransition:
                     shouldSplit = nextScene != currScene && !store.SplitThisTransition
                                     && !(string.IsNullOrEmpty(currScene) || string.IsNullOrEmpty(nextScene)
