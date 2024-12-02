@@ -66,7 +66,7 @@ namespace LiveSplit.HollowKnight {
         StartNewGame,
         [Description("Start New Godseeker Game (Start)"), ToolTip("Splits when starting a Godseeker save")]
         StartGodhome,
-        [Description("Start Pantheon (Start)"), ToolTip("Splits when starting a Godhome save file or Pantheon run")]
+        [Description("Start Pantheon (Start)"), ToolTip("Splits when starting a Pantheon run")]
         StartPantheon,
 
         [Description("[DEPRECATED] End Run (Ending)"), ToolTip("Splits when autosplitter version 3 would have automatically ended runs")]
