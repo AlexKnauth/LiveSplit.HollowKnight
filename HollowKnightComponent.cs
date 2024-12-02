@@ -627,9 +627,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.EnterHornet2: shouldSplit = nextScene.StartsWith("Deepnest_East_Hornet") && nextScene != currScene; break;
                 case SplitName.EnterBroodingMawlek: shouldSplit = nextScene.StartsWith("Crossroads_09") && nextScene != currScene; break;
                 case SplitName.EnterNosk: shouldSplit = nextScene.StartsWith("Deepnest_32") && nextScene != currScene; break;
-                // TODO: EnterTMG should require Grimmchild Equipped
                 case SplitName.EnterTMG:
                     shouldSplit = nextScene.StartsWith("Grimm_Main_Tent") && nextScene != currScene
+                        && mem.PlayerData<bool>(Offset.equippedCharm_40) // Equipped Grimmchild
                         && mem.PlayerData<int>(Offset.grimmChildLevel) == 2
                         && mem.PlayerData<int>(Offset.flamesCollected) == 3; break;
                 case SplitName.EnterLoveTower: shouldSplit = nextScene.StartsWith("Ruins2_11") && nextScene != currScene; break;
