@@ -618,8 +618,6 @@ namespace LiveSplit.HollowKnight {
         AspidHunter,
         [Description("Aluba (Killed)"), ToolTip("Splits when killing an Aluba")]
         Aluba,
-        //[Description("Al2ba (Killed)"), ToolTip("Splits when killing two Alubas")]
-        //Al2ba,
         [Description("Little Baldur Hunter's Notes (Killed)"), ToolTip("Splits when killing all little Baldurs needed for Hunter's Notes journal completion")]
         RollerHuntersNotes,
         [Description("Maggots (Killed)"), ToolTip("Splits when killing both Maggots")]
@@ -638,8 +636,6 @@ namespace LiveSplit.HollowKnight {
         killedSanctumWarrior,
         [Description("Soul Twister (Killed)"), ToolTip("Splits on first Soul Twister kill")]
         killedSoulTwister,
-        //[Description("Revek (Killed)"), ToolTip("Splits when talking to Revek after clearing all other Glade ghosts")]
-        //Revek,
         [Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
         MossKnight,
         [Description("Shrumal Ogres (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
