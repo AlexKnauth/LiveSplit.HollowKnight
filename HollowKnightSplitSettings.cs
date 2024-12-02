@@ -72,7 +72,7 @@ namespace LiveSplit.HollowKnight {
         [Description("[DEPRECATED] End Run (Ending)"), ToolTip("Splits when autosplitter version 3 would have automatically ended runs")]
         LegacyEnd,
 
-        [Description("Credits Roll (Event)"), ToolTip("Splits on any credits rolling")]
+        [Description("Credits Roll (Ending)"), ToolTip("Splits on any credits rolling")]
         EndingSplit,
         [Description("The Hollow Knight (Ending)"), ToolTip("Splits on The Hollow Knight ending")]
         EndingA,
@@ -489,7 +489,7 @@ namespace LiveSplit.HollowKnight {
         NoskHornetP,
         [Description("Nightmare King Grimm (Pantheon)"), ToolTip("Splits after killing Nightmare King Grimm in Pantheon 5")]
         NightmareKingGrimmP,
-        [Description("Absolute Radiance (Pantheon)"), ToolTip("Splits after killing Absolute Radiance in Pantheon 5")]
+        [Description("Absolute Radiance (Ending)"), ToolTip("Splits after killing Absolute Radiance in Pantheon 5")]
         RadianceP,
 
         [Description("Herrah the Beast (Dreamer)"), ToolTip("Splits when you see the mask for Herrah")]
