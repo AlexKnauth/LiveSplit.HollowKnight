@@ -205,9 +205,11 @@ namespace LiveSplit.HollowKnight {
             // legacy auto-start and auto-end splits
 
             XmlNode AutosplitStartRunsNode = settings.SelectSingleNode(".//AutosplitStartRuns"); // will be null if it's the new version (or really really old version, that'll be broken i guess)
-            if (AutosplitStartRunsNode != null) { // if it's the an old .lss file
-                string splitDescription = AutosplitStartRunsNode.InnerText.Trim();
-
+            XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns"); // will be null if it's the new version... same as above
+            XmlNode OrderedNode = settings.SelectSingleNode(".//Ordered"); // will be null if it's the new version... same as above
+            if (AutosplitStartRunsNode != null || AutosplitEndRunsNode != null || OrderedNode != null) { // if it's the an old .lss file
+                string splitDescription = AutosplitStartRunsNode?.InnerText?.Trim();
+                
                 // if there's an explicit auto-start split, add it to the list, if not, add legacy start
                 if (!string.IsNullOrEmpty(splitDescription)) {
                     cboStartTriggerName.DataSource = GetAvailableSplits();
@@ -216,14 +218,11 @@ namespace LiveSplit.HollowKnight {
                     Splits.Insert(0, SplitName.LegacyStart); // add the legacy start split for now
                 }
 
-            }
-
-            XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns"); // will be null if it's the new version... same as above
-            if (AutosplitEndRunsNode != null) { // if it's an old .lss file
-
                 // check if autoend split
                 bool isAutosplitEndRuns = false;
-                bool.TryParse(AutosplitEndRunsNode.InnerText, out isAutosplitEndRuns);
+                if (AutosplitEndRunsNode != null) {
+                    bool.TryParse(AutosplitEndRunsNode.InnerText, out isAutosplitEndRuns);
+                }
 
                 // if there's an explicit auto-end, leave it, if there's not, add legacy ending split to list
                 if (!isAutosplitEndRuns) {
