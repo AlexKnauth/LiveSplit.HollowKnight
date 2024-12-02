@@ -201,6 +201,7 @@
         spiderCapture,
         unchainedHollowKnight,
         killedGiantHopper,
+        killedGreatShieldZombie,
         killedGorgeousHusk,
         gladeDoorOpened,
         killedLazyFlyer,
@@ -262,6 +263,9 @@
         openedWaterwaysManhole,
         waterwaysAcidDrained,
         dungDefenderWallBroken,
+        dungDefenderAwoken,
+        dungDefenderLeft,
+        dungDefenderAwakeConvo,
         openedLoveDoor,
 
         hasCityKey,
@@ -396,6 +400,8 @@
         killsMageKnight,
         killsMantisHeavyFlyer,
         killsMawlek,
+        killsPrayerSlug,
+        killsRoller,
         killsSuperSpitter,
         killsGreatShieldZombie,
         

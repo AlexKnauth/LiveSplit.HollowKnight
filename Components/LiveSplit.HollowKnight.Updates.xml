@@ -1,5 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.16">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New journal autosplits: Little Baldurs (AlexKnauth), Maggots (Peeka)</change>
+            <change>New event autosplit: Path of Pain Room 4 DDark (Peeka)</change>
+            <change>Fixed 1.0.2.8 modapi (Peeka)</change>
+        </changelog>
+    </update>
+    <update version="3.1.15">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New transition autosplit: Spire Bench Exit (Transition)</change>
+            <change>New enemy autosplit: Great Husk Sentry (Killed)</change>
+        </changelog>
+    </update>
+    <update version="3.1.14">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Fixed Dream Nail Vespa: HiveBlood is no longer required</change>
+        </changelog>
+    </update>
+    <update version="3.1.13">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>The Fog Canyon Entry split now also splits when entering from Greenpath, Queen's Station, or Queen's Gardens, in addition to Crossroads</change>
+            <change>The Waterways Entry split now also splits when entering right of Spike-tunnel, in addition to the Simple Key manhole</change>
+        </changelog>
+    </update>
+    <update version="3.1.12">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New charm autosplit: `Carefree Melody`</change>
+        </changelog>
+    </update>
+    <update version="3.1.11">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Fixed RidingStag: splits only once per stag trip</change>
+            <change>Fixed Silver5: doesn't split too early if you leave an Aspid for last</change>
+            <change>Fixed Stinky / WhiteDefenderStatueUnlocked: doesn't split too early if you talk to him</change>
+        </changelog>
+    </update>
+    <update version="3.1.10">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New transition autosplits: `Has Shade Soul`, `Grimm Flame 1-3`, `Beast Den`</change>
+            <change>New menu autosplit: `Main Menu w/ Shade Soul`</change>
+            <change>New fun split: `Stinky`</change>
+        </changelog>
+    </update>
+    <update version="3.1.9">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Fixed autosplits: SoulMasterPhase1, MenuIsmasTear, OnObtainCharmNotch, EnterNosk, and BrokenVesselTrans</change>
+            <change>Restored an attempt to fix RidingStag autosplit</change>
+        </changelog>
+    </update>
     <update version="3.1.8">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

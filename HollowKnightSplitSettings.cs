@@ -72,6 +72,8 @@ namespace LiveSplit.HollowKnight {
         [Description("[DEPRECATED] End Run (Ending)"), ToolTip("Splits when autosplitter version 3 would have automatically ended runs")]
         LegacyEnd,
 
+        [Description("Credits Roll (Event)"), ToolTip("Splits on any credits rolling")]
+        EndingSplit,
         [Description("The Hollow Knight (Ending)"), ToolTip("Splits on The Hollow Knight ending")]
         EndingA,
         [Description("Sealed Siblings (Ending)"), ToolTip("Splits on Sealed Siblings ending")]
@@ -531,8 +533,6 @@ namespace LiveSplit.HollowKnight {
         CityGateOpen,
         [Description("City Gate w/ Mantis Lords defeated (Event)"), ToolTip("To make sure you don't forget Mantis Lords")]
         CityGateAndMantisLords,
-        [Description("[DEPRECATED] Credits Roll (Event)"), ToolTip("Splits on any credits rolling")]
-        EndingSplit,
         [Description("Death (Event)"), ToolTip("Splits when player HP is 0")]
         PlayerDeath,
         [Description("Shade Killed (Event)"), ToolTip("Splits when the Shade is killed")]
@@ -545,6 +545,8 @@ namespace LiveSplit.HollowKnight {
         FlowerRewardGiven,
         [Description("Happy Couple (Event)"), ToolTip("Splits when talking to Nailsmith in Sheo's hut for the first time")]
         HappyCouplePlayerDataEvent,
+        [Description("Stinky (Event)"), ToolTip("Splits when seeing the Dung Defender's statue of the Knight")]
+        WhiteDefenderStatueUnlocked,
         [Description("Nailsmith Killed (Event)"), ToolTip("Splits when Nailsmith is killed")]
         NailsmithKilled,
         [Description("Nailsmith Killed/Spared (Event)"), ToolTip("Splits when Nailsmith is killed\nSkips when nailsmith is spared (requires ordered splits)")]
@@ -618,10 +620,16 @@ namespace LiveSplit.HollowKnight {
         Aluba,
         //[Description("Al2ba (Killed)"), ToolTip("Splits when killing two Alubas")]
         //Al2ba,
+        [Description("Little Baldur Hunter's Notes (Killed)"), ToolTip("Splits when killing all little Baldurs needed for Hunter's Notes journal completion")]
+        RollerHuntersNotes,
+        [Description("Maggots (Killed)"), ToolTip("Splits when killing both Maggots")]
+        Maggots,
         [Description("Husk Miner (Killed)"), ToolTip("Splits when killing a Husk Miner")]
         HuskMiner,
         [Description("Great Hopper (Killed)"), ToolTip("Splits when killing a Great Hopper")]
         GreatHopper,
+        [Description("Great Husk Sentry (Killed)"), ToolTip("Splits when killing a Great Husk Sentry")]
+        GreatHuskSentry,
         [Description("Gorgeous Husk (Killed)"), ToolTip("Splits when killing Gorgeous Husk")]
         GorgeousHusk,
         [Description("Menderbug (Killed)"), ToolTip("Splits when killing Menderbug")]
@@ -728,6 +736,8 @@ namespace LiveSplit.HollowKnight {
         AncestralMound,
         [Description("Ancient Basin (Transition)"), ToolTip("Splits on transition to Ancient Basin")]
         BasinEntry,
+        [Description("Beast Den (Transition)"), ToolTip("Splits on transition into Beast Den")]
+        EnterBeastDen,
         [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from either side")]
         BlueLake,
         [Description("Catacombs Entry (Transition)"), ToolTip("Splits on entry to the catacombs below Resting Grounds")]
@@ -742,7 +752,7 @@ namespace LiveSplit.HollowKnight {
         EnterDirtmouth,
         [Description("Enter Any Dream (Transition)"), ToolTip("Splits when entering any dream world")]
         EnterAnyDream,
-        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to East Fog Canyon")]
+        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to Fog Canyon\n(Room below Greenpath, left of Queen's Station, right of Overgrown Mound, or below Crossroads)")]
         FogCanyonEntry,
         [Description("Fungal Wastes Entry (Transition)"), ToolTip("Splits on transition to Fungal Wastes\n(Room below Crossroads, right of Queen's Station, left of Waterways or Spore Shroom room)")]
         FungalWastesEntry,
@@ -760,6 +770,8 @@ namespace LiveSplit.HollowKnight {
         EnterRafters,
         [Description("Salubra Exit (Transition)"), ToolTip("Splits on the transition out of Salubra's Hut")]
         SalubraExit,
+        [Description("Spire Bench Exit (Transition)"), ToolTip("Splits on the transition out of the bench room in Watcher's Spire")]
+        SpireBenchExit,
 
         [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
         TransClaw,
@@ -801,7 +813,7 @@ namespace LiveSplit.HollowKnight {
         EnterSanctumWithShadeSoul,
         [Description("Tower of Love (Transition)"), ToolTip("Splits when entering the Tower of Love")]
         EnterLoveTower,
-        [Description("Waterways Manhole (Transition)"), ToolTip("Splits on transition to Waterways through the Simple Key manhole")]
+        [Description("Waterways (Transition)"), ToolTip("Splits on transition to Waterways\n(Simple Key manhole or right of Spike-tunnel)")]
         WaterwaysEntry,
         [Description("White Palace Entry (Transition)"), ToolTip("Splits when entering the first White Palace scene")]
         WhitePalaceEntry,
@@ -842,6 +854,8 @@ namespace LiveSplit.HollowKnight {
         Grimmchild3,
         [Description("Grimmchild Lvl 4 (Charm)"), ToolTip("Splits when upgrading Grimmchild to level 4")]
         Grimmchild4,
+        [Description("Carefree Melody (Charm)"), ToolTip("Splits when obtaining the Carefree Melody charm")]
+        CarefreeMelody,
         [Description("Grubberfly's Elegy (Charm)"), ToolTip("Splits when obtaining the Grubberfly's Elegy charm")]
         GrubberflysElegy,
         [Description("Grubsong (Charm)"), ToolTip("Splits when obtaining the Grubsong charm")]
@@ -955,6 +969,13 @@ namespace LiveSplit.HollowKnight {
         [Description("Grimm Flame 3 (Flame)"), ToolTip("Splits after obtaining the third flame.")]
         Flame3,
 
+        [Description("Grimm Flame 1 (Transition)"), ToolTip("Splits on transition after obtaining the first flame on current Grimmchild cycle.")]
+        TransFlame1,
+        [Description("Grimm Flame 2 (Transition)"), ToolTip("Splits on transition after obtaining the second flame on current Grimmchild cycle.")]
+        TransFlame2,
+        [Description("Grimm Flame 3 (Transition)"), ToolTip("Splits on transition after obtaining the third flame on current Grimmchild cycle.")]
+        TransFlame3,
+        
         [Description("Pale Ore 1 (Ore)"), ToolTip("Splits after obtaining the first pale ore.")]
         Ore1,
         [Description("Pale Ore 2 (Ore)"), ToolTip("Splits after obtaining the second pale ore.")]
@@ -1413,6 +1434,8 @@ namespace LiveSplit.HollowKnight {
         PathOfPainTransition2,
         [Description("Path of Pain Room 4 (Room)"), ToolTip("Splits on transition to the fourth room in PoP (Final room)")]
         PathOfPainTransition3,
+        [Description("Path of Pain Room 4 DDark (Event)"), ToolTip("Splits on landing with Descending Dark in fourth room of PoP")]
+        PathOfPainRoom4DDark,
 
         [Description("Kingdom's Edge Acid (Dreamgate)"), ToolTip("Splits when placing Dreamgate by KE Acid (hopefully)")]
         DgateKingdomsEdgeAcid,
@@ -1448,6 +1471,9 @@ namespace LiveSplit.HollowKnight {
         MenuVoidHeart,
         [Description("Main Menu w/ 3 Dreamers (Menu)"), ToolTip("Splits on transition to the main menu after 3 Dreamers acquired")]
         MenuDreamer3,
+
+        [Description("Main Menu w/ Shade Soul (Menu)"), ToolTip("Splits on transition to the main menu after Shade Soul acquired")]
+        MenuShadeSoul,
 
         [Description("Cornifer at Home (Transition)"), ToolTip("Splits when entering Iselda's hut while Cornifer is sleeping")]
         CorniferAtHome,
