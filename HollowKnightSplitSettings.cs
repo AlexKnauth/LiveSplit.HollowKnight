@@ -62,12 +62,12 @@ namespace LiveSplit.HollowKnight {
         [Description("[DEPRECATED] Start Run (Start)"), ToolTip("Splits when autosplitter version 3 would have automatically started runs")]
         LegacyStart,
 
-        [Description("Start New Game (Normal/Steel Soul) (Start)"), ToolTip("Splits on entry into King's Pass when starting a new game")]
+        [Description("Start New Game (Start)"), ToolTip("Splits when starting a new game, including Normal, Steel Soul, and Godseeker mode")]
         StartNewGame,
-        [Description("Start New Godseeker Game (Start)"), ToolTip("Splits when starting a Godseeker save")]
-        StartGodhome,
         [Description("Start Pantheon (Start)"), ToolTip("Splits when starting a Pantheon run")]
         StartPantheon,
+        [Description("Rando Wake (Start)"), ToolTip("Splits when gaining control after waking up in Rando")]
+        RandoWake,
 
         [Description("[DEPRECATED] End Run (Ending)"), ToolTip("Splits when autosplitter version 3 would have automatically ended runs")]
         LegacyEnd,
@@ -1679,8 +1679,6 @@ namespace LiveSplit.HollowKnight {
         TransitionExcludingDiscontinuities,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
-        [Description("Rando Wake (Event)"), ToolTip("Splits when gaining control after waking up in Rando")]
-        RandoWake,
         [Description("Ghost Coins Incremented (Event)"), ToolTip("Splits when the ghostCoins PlayerData is updated. Unused by unmodded game, intended for use with mods.")]
         OnGhostCoinsIncremented,
 

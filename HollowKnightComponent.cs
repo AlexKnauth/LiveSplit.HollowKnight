@@ -238,14 +238,13 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.StartNewGame:
                     shouldSplit =
                         (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase)
-                        && mem.GameState() == GameState.ENTERING_LEVEL);
+                        && mem.GameState() == GameState.ENTERING_LEVEL)
+                        || nextScene is "GG_Entrance_Cutscene";
                     break;
                 case SplitName.StartPantheon:
                     shouldSplit =
                         nextScene is "GG_Vengefly_V" or "GG_Boss_Door_Entrance";
                     break;
-
-                case SplitName.StartGodhome: shouldSplit = nextScene is "GG_Entrance_Cutscene"; break;
 
                 case SplitName.RandoWake:
                     shouldSplit =
