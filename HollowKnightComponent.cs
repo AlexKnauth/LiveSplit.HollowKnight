@@ -616,6 +616,14 @@ namespace LiveSplit.HollowKnight {
                         goto case SplitName.AnyTransition;
                     }
                     break;
+                case SplitName.TransitionExcludingDiscontinuities:
+                    if (!(debugSaveStateSceneNames.Contains(nextScene)
+                        || debugSaveStateSceneNames.Contains(currScene)
+                        || mem.PlayerData<int>(Offset.health) == 0
+                        || mem.EntryGateName() == "dreamGate")) {
+                        goto case SplitName.AnyTransition;
+                    }
+                    break;
                 case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != currScene; break;
                 case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != currScene; break;
                 case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != currScene; break;
