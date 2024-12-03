@@ -12,9 +12,19 @@
             <change>It is preferred for you to edit your splits to use start/end point splits specific for the category you are running.</change>
             <change></change>
             <change>New and updated splits:</change>
-            <change>Individual splits for all endings, start new normal game, start new godhome game</change>
-            <change>Added Absolute Radiance split for Pantheon of Hallownest</change>
-            <change>Menu splits for Mothwing Cloak, Dashmaster, Dream Nail, Dream Gate, Void Heart and 3 Dreamers. All main menu splits modified to be more reliable</change>
+            <change>Added starting splits for start new game, start pantheon (Mayo)</change>
+            <change>Added Individual splits for all endings (Mayo)</change>
+            <change>Added Absolute Radiance Ending split for Pantheon of Hallownest (AlexKnauth)</change>
+            <change>Added Menu splits for Mothwing Cloak, Dashmaster, Dream Nail, Dream Gate, Void Heart and 3 Dreamers (Mayo)</change>
+            <change>Added Soul Sanctum Hallownest Seal split (Mayo)</change>
+            <change>Added Stag Position Updated split (Mayo)</change>
+            <change>Added City Toll Bench Room Transition split (Mayo)</change>
+            <change>Added Transition excluding discontinuities split (AlexKnauth)</change>
+            <change>Fixed Credits Roll Ending split to not split on finishing any of Pantheon 1-4 (AlexKnauth)</change>
+            <change>Fixed Main Menu splits to be more reliable (Mayo)</change>
+            <change>Fixed Has Shade Soul Transition split to be room-dupe-safe (Python)</change>
+            <change>Fixed Enter Troupe Master Grimm Transition split to require Grimmchild equipped (AlexKnauth)</change>
+            <change>Fixed Pure Snail split to allow a full focus at full health (AlexKnauth)</change>
         </changelog>
     </update>
     <update version="3.1.16">
