@@ -751,9 +751,13 @@ namespace LiveSplit.HollowKnight {
                         && (mem.PlayerData<float>(Offset.dreamGateY) > 7.0f && mem.PlayerData<float>(Offset.dreamGateY) < 9f);
                     break;
 
-                // TODO: PureSnail should allow completing a focus (consuming all 33 soul) while at full health
                 case SplitName.PureSnail: // the award for the most miscellaneous split goes to this one probably
-                    shouldSplit = store.CheckIncreasedBy(Offset.health, 1) // Healing
+                    int health = mem.PlayerData<int>(Offset.health);
+                    shouldSplit = mem.Focusing() // Healing
+                        && 0 < store.HealthBeforeFocus
+                        && (store.HealthBeforeFocus < health
+                            || (health == mem.PlayerData<int>(Offset.maxHealth)
+                                && mem.PlayerData<int>(Offset.MPCharge) + 33 <= store.MPChargeBeforeFocus))
                         && mem.PlayerData<bool>(Offset.equippedCharm_5) // Baldur Shell
                         && mem.PlayerData<bool>(Offset.equippedCharm_7) // Quick Focus
                         && mem.PlayerData<bool>(Offset.equippedCharm_17) // Spore Shroom
