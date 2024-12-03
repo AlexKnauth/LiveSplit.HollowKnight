@@ -611,7 +611,7 @@ namespace LiveSplit.HollowKnight {
                     if (!(debugSaveStateSceneNames.Contains(nextScene)
                         || debugSaveStateSceneNames.Contains(currScene)
                         || mem.PlayerData<int>(Offset.health) == 0
-                        || mem.EntryGateName() == "dreamGate")) {
+                        || mem.EntryGateName() is "dreamGate" or "door_dreamReturn")) {
                         goto case SplitName.AnyTransition;
                     }
                     break;
