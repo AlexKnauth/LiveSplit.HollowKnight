@@ -634,7 +634,7 @@ namespace LiveSplit.HollowKnight {
                         && mem.PlayerData<int>(Offset.flamesCollected) == 3; break;
                 case SplitName.EnterLoveTower: shouldSplit = nextScene.StartsWith("Ruins2_11") && nextScene != currScene; break;
 
-                case SplitName.EnterCityTollBenchRoom: shouldSplit = nextScene.StartsWith("Ruins1_18") && nextScene != currScene; break;
+                case SplitName.EnterCityTollBenchRoom: shouldSplit = nextScene.StartsWith("Ruins1_31") && nextScene != currScene; break;
 
                 case SplitName.VengeflyKingTrans: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer) && nextScene != currScene; break;
                 case SplitName.MegaMossChargerTrans: shouldSplit = mem.PlayerData<bool>(Offset.megaMossChargerDefeated) && nextScene != currScene; break;
