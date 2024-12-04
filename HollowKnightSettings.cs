@@ -196,39 +196,56 @@ namespace LiveSplit.HollowKnight {
 
             Splits.Clear(); // reset the splits
 
-            XmlNodeList splitNodes = settings.SelectNodes(".//Splits/Split");
-            foreach (XmlNode splitNode in splitNodes) {
-                SplitName split = HollowKnightSplitSettings.GetSplitName(splitNode.InnerText);
-                Splits.Add(split);
-            }
+            XmlNode splitsNode = settings.SelectSingleNode(".//Splits"); // will be null if it's the WASM autosplitter
+            XmlNode customSettingsNode = settings.SelectSingleNode(".//CustomSettings"); // will be null if it's the Default autosplitter
 
-            // legacy auto-start and auto-end splits
-
-            XmlNode AutosplitStartRunsNode = settings.SelectSingleNode(".//AutosplitStartRuns"); // will be null if it's the new version (or really really old version, that'll be broken i guess)
-            XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns"); // will be null if it's the new version... same as above
-            XmlNode OrderedNode = settings.SelectSingleNode(".//Ordered"); // will be null if it's the new version... same as above
-            if (AutosplitStartRunsNode != null || AutosplitEndRunsNode != null || OrderedNode != null) { // if it's the an old .lss file
-                string splitDescription = AutosplitStartRunsNode?.InnerText?.Trim();
-                
-                // if there's an explicit auto-start split, add it to the list, if not, add legacy start
-                if (!string.IsNullOrEmpty(splitDescription)) {
-                    cboStartTriggerName.DataSource = GetAvailableSplits();
-                    Splits.Insert(0, HollowKnightSplitSettings.GetSplitName(splitDescription));
-                } else { // implicit auto-start in .lss, add it to the list
-                    Splits.Insert(0, SplitName.LegacyStart); // add the legacy start split for now
+            if (splitsNode != null) {
+                // Default autosplitter
+                XmlNodeList splitNodes = settings.SelectNodes(".//Splits/Split");
+                foreach (XmlNode splitNode in splitNodes) {
+                    SplitName split = HollowKnightSplitSettings.GetSplitName(splitNode.InnerText);
+                    Splits.Add(split);
                 }
 
-                // check if autoend split
-                bool isAutosplitEndRuns = false;
-                if (AutosplitEndRunsNode != null) {
-                    bool.TryParse(AutosplitEndRunsNode.InnerText, out isAutosplitEndRuns);
-                }
+                // legacy auto-start and auto-end splits
 
-                // if there's an explicit auto-end, leave it, if there's not, add legacy ending split to list
-                if (!isAutosplitEndRuns) {
-                    Splits.Add(SplitName.LegacyEnd);
-                }
+                XmlNode AutosplitStartRunsNode = settings.SelectSingleNode(".//AutosplitStartRuns"); // will be null if it's the new version (or really really old version, that'll be broken i guess)
+                XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns"); // will be null if it's the new version... same as above
+                XmlNode OrderedNode = settings.SelectSingleNode(".//Ordered"); // will be null if it's the new version... same as above
+                if (AutosplitStartRunsNode != null || AutosplitEndRunsNode != null || OrderedNode != null) { // if it's the an old .lss file
+                    string splitDescription = AutosplitStartRunsNode?.InnerText?.Trim();
 
+                    // if there's an explicit auto-start split, add it to the list, if not, add legacy start
+                    if (!string.IsNullOrEmpty(splitDescription)) {
+                        cboStartTriggerName.DataSource = GetAvailableSplits();
+                        Splits.Insert(0, HollowKnightSplitSettings.GetSplitName(splitDescription));
+                    } else { // implicit auto-start in .lss, add it to the list
+                        Splits.Insert(0, SplitName.LegacyStart); // add the legacy start split for now
+                    }
+
+                    // check if autoend split
+                    bool isAutosplitEndRuns = false;
+                    if (AutosplitEndRunsNode != null) {
+                        bool.TryParse(AutosplitEndRunsNode.InnerText, out isAutosplitEndRuns);
+                    }
+
+                    // if there's an explicit auto-end, leave it, if there's not, add legacy ending split to list
+                    if (!isAutosplitEndRuns) {
+                        Splits.Add(SplitName.LegacyEnd);
+                    }
+
+                }
+            } else if (customSettingsNode != null) {
+                // WASM autosplitter
+                XmlNodeList splitNodes = settings.SelectNodes(".//CustomSettings/Setting[@id='splits']/Setting");
+                foreach (XmlNode splitNode in splitNodes) {
+                    string value = splitNode.Attributes.GetNamedItem("value").Value;
+                    Splits.Add(HollowKnightSplitSettings.GetSplitName(value));
+                }
+            } else {
+                // no splits settings, default auto-start and auto-end
+                Splits.Insert(0, SplitName.LegacyStart);
+                Splits.Add(SplitName.LegacyEnd);
             }
 
             return;
