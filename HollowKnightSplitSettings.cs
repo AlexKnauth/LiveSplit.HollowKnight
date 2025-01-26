@@ -782,6 +782,8 @@ namespace LiveSplit.HollowKnight {
         TransDescendingDark,
         [Description("Has Isma's Tear (Transition)"), ToolTip("Splits on transition after Isma's Tear acquired")]
         TransTear,
+        [Description("Has Map Crossroads (Transition)"), ToolTip("Splits on transition after Crossroads Map acquired")]
+        TransMapCrossroads,
         [Description("Isma's Tear with Grub (Transition)"), ToolTip("Splits on transition after collecting Isma's Tear and saving the grub in Isma's Grove")]
         TransTearWithGrub,
         [Description("Junk Pit (Transition)"), ToolTip("Splits on transition into Junk Pit")]
