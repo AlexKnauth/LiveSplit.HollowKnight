@@ -1412,6 +1412,8 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MaskFragment15: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 15 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 3); break;
                 case SplitName.Mask4: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 9; break;
 
+                case SplitName.Mask5: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 10; break;
+
                 #endregion Mask Shards
 
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
