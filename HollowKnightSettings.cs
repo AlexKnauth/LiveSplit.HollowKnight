@@ -37,6 +37,7 @@ namespace LiveSplit.HollowKnight {
             LoadSettings();
         }
         public void LoadSettings() {
+            Console.WriteLine("LoadSettings called: isLoading = true");
             isLoading = true;
             this.flowMain.SuspendLayout();
 
@@ -61,6 +62,7 @@ namespace LiveSplit.HollowKnight {
                 flowMain.Controls.Add(setting);
             }
 
+            Console.WriteLine("LoadSettings return: isLoading = false");
             isLoading = false;
             this.flowMain.ResumeLayout(true);
         }
@@ -135,7 +137,13 @@ namespace LiveSplit.HollowKnight {
             UpdateSplits();
         }
         public void UpdateSplits() {
-            if (isLoading) return;
+            Console.WriteLine("UpdateSplits called: check isLoading");
+            if (isLoading) {
+                Console.WriteLine("UpdateSplits abort: isLoading was true");
+                return;
+            }
+
+            Console.WriteLine("UpdateSplits continue: isLoading was false");
 
             Ordered = chkOrdered.Checked;
             AutosplitEndRuns = chkAutosplitEndRuns.Checked;
@@ -152,6 +160,8 @@ namespace LiveSplit.HollowKnight {
                     }
                 }
             }
+
+            Console.WriteLine("UpdateSplits return");
         }
         public XmlNode UpdateSettings(XmlDocument document) {
             XmlElement xmlSettings = document.CreateElement("Settings");
@@ -181,6 +191,7 @@ namespace LiveSplit.HollowKnight {
             return xmlSettings;
         }
         public void SetSettings(XmlNode settings) {
+            Console.WriteLine("SetSettings called");
             XmlNode orderedNode = settings.SelectSingleNode(".//Ordered");
             XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns");
             XmlNode AutosplitStartRunsNode = settings.SelectSingleNode(".//AutosplitStartRuns");
@@ -214,6 +225,8 @@ namespace LiveSplit.HollowKnight {
                 SplitName split = HollowKnightSplitSettings.GetSplitName(splitDescription);
                 Splits.Add(split);
             }
+
+            Console.WriteLine("SetSettings return");
         }
         private HollowKnightSplitSettings createSetting() {
             HollowKnightSplitSettings setting = new HollowKnightSplitSettings();
