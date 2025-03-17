@@ -38,12 +38,15 @@ namespace LiveSplit.HollowKnight {
             LoadSettings();
         }
         public void LoadSettings() {
+            Console.WriteLine("LoadSettings TryEnterReadLock");
             try {
                 // 5 seconds, higher priority than UpdateSplits
                 if (!isLoading.TryEnterReadLock(5000)) {
+                    Console.WriteLine("LoadSettings TryEnterReadLock failed: timeout");
                     return;
                 }
             } catch (LockRecursionException) {
+                Console.WriteLine("LoadSettings TryEnterReadLock failed: recursion");
                 return;
             }
 
@@ -70,6 +73,7 @@ namespace LiveSplit.HollowKnight {
                 flowMain.Controls.Add(setting);
             }
 
+            Console.WriteLine("LoadSettings ExitReadLock");
             isLoading.ExitReadLock();
             this.flowMain.ResumeLayout(true);
         }
@@ -144,12 +148,15 @@ namespace LiveSplit.HollowKnight {
             UpdateSplits();
         }
         public void UpdateSplits() {
+            Console.WriteLine("UpdateSplits TryEnterWriteLock");
             try {
                 // NO retry, lower priority than SetSettings and LoadSettings
                 if (!isLoading.TryEnterWriteLock(0)) {
+                    Console.WriteLine("UpdateSplits TryEnterWriteLock failed: timeout");
                     return;
                 }
             } catch (LockRecursionException) {
+                Console.WriteLine("UpdateSplits TryEnterWriteLock failed: recursion");
                 return;
             }
 
@@ -169,6 +176,7 @@ namespace LiveSplit.HollowKnight {
                 }
             }
 
+            Console.WriteLine("UpdateSplits ExitWriteLock");
             isLoading.ExitWriteLock();
         }
         public XmlNode UpdateSettings(XmlDocument document) {
@@ -200,12 +208,15 @@ namespace LiveSplit.HollowKnight {
         }
 
         public void SetSettings(XmlNode settings) {
+            Console.WriteLine("SetSettings TryEnterWriteLock");
             try {
                 // 5 seconds, higher priority than UpdateSplits
                 if (!isLoading.TryEnterWriteLock(5000)) {
+                    Console.WriteLine("SetSettings TryEnterWriteLock failed: timeout");
                     return;
                 }
             } catch (LockRecursionException) {
+                Console.WriteLine("SetSettings TryEnterWriteLock failed: recursion");
                 return;
             }
 
@@ -279,6 +290,7 @@ namespace LiveSplit.HollowKnight {
                 Splits.Clear();
             }
 
+            Console.WriteLine("SetSettings ExitWriteLock");
             isLoading.ExitWriteLock();
         }
 
