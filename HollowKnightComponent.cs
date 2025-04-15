@@ -829,7 +829,10 @@ namespace LiveSplit.HollowKnight {
                 #region Enemies
 
                 case SplitName.Aluba: shouldSplit = mem.PlayerData<bool>(Offset.killedLazyFlyer); break;
-                case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
+                case SplitName.AspidHunter:
+                    shouldSplit = store.CheckIncreasedSinceEntryBy(Offset.killsSpitter, -3);
+                    shouldSkip = !shouldSplit && mem.PlayerData<int>(Offset.killsSpitter) == 0;
+                    break;
                 case SplitName.GorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
                 case SplitName.GreatHopper: shouldSplit = mem.PlayerData<bool>(Offset.killedGiantHopper); break;
                 case SplitName.GreatHuskSentry: shouldSplit = mem.PlayerData<bool>(Offset.killedGreatShieldZombie); break;
@@ -1625,59 +1628,71 @@ namespace LiveSplit.HollowKnight {
                     break;
                 case SplitName.Silver7: // 1 × Belfly
                     shouldSplit =
-                        store.killsCeilingDropperStart - mem.PlayerData<int>(Offset.killsCeilingDropper) == 4;
+                        store.CheckIncreasedSinceEntryBy(Offset.killsCeilingDropper, -4);
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsCeilingDropper) == 0
-                        || store.killsCeilingDropperStart - mem.PlayerData<int>(Offset.killsCeilingDropper) > 4;
+                        !shouldSplit
+                        && (mem.PlayerData<int>(Offset.killsCeilingDropper) == 0
+                            || store.GetValueOnEntry(Offset.killsCeilingDropper) - mem.PlayerData<int>(Offset.killsCeilingDropper) > 4);
                     break;
                 case SplitName.Silver8: // 8 × Hopper, 1 × Great Hopper
                     shouldSplit =
-                        store.killsGiantHopperStart - mem.PlayerData<int>(Offset.killsGiantHopper) == 1; // only checking great hopper
+                        store.CheckIncreasedSinceEntryBy(Offset.killsGiantHopper, -1); // only checking great hopper
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsGiantHopper) == 0
-                        || store.killsGiantHopperStart - mem.PlayerData<int>(Offset.killsGiantHopper) > 1;
+                        !shouldSplit
+                        && (mem.PlayerData<int>(Offset.killsGiantHopper) == 0
+                            || store.GetValueOnEntry(Offset.killsGiantHopper) - mem.PlayerData<int>(Offset.killsGiantHopper) > 1);
                     break;
                 case SplitName.Silver9: // 1 × Great Hopper
                     shouldSplit =
-                        store.killsGiantHopperStart - mem.PlayerData<int>(Offset.killsGiantHopper) == 2;
+                        store.CheckIncreasedSinceEntryBy(Offset.killsGiantHopper, -2);
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsGiantHopper) == 0
-                        || store.killsGiantHopperStart - mem.PlayerData<int>(Offset.killsGiantHopper) > 2;
+                        !shouldSplit
+                        && (mem.PlayerData<int>(Offset.killsGiantHopper) == 0
+                            || store.GetValueOnEntry(Offset.killsGiantHopper) - mem.PlayerData<int>(Offset.killsGiantHopper) > 2);
                     break;
                 case SplitName.Silver10: // 1 × Mimic
                     shouldSplit =
-                        store.killsGrubMimicStart - mem.PlayerData<int>(Offset.killsGrubMimic) == 1;
+                        store.CheckIncreasedSinceEntryBy(Offset.killsGrubMimic, -1);
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsGrubMimic) == 0
-                        || store.killsGrubMimicStart - mem.PlayerData<int>(Offset.killsGrubMimic) > 1;
+                        !shouldSplit
+                        && (mem.PlayerData<int>(Offset.killsGrubMimic) == 0
+                            || store.GetValueOnEntry(Offset.killsGrubMimic) - mem.PlayerData<int>(Offset.killsGrubMimic) > 1);
                     break;
                 case SplitName.Silver11: // 2 × Shielded fool, 2 × Winged Fool, 1 × Heavy Fool, 2 × Squit
-                    shouldSplit =
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 9
-                        && store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 6
-                        && store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) == 4;
+                    {
+                        bool squits = store.CheckIncreasedSinceEntryBy(Offset.killsColMosquito, -9);
+                        bool wingeds = store.CheckIncreasedSinceEntryBy(Offset.killsColFlyingSentry, -6);
+                        bool heavys = store.CheckIncreasedSinceEntryBy(Offset.killsColWorm, -4);
+                        shouldSplit = squits && wingeds && heavys;
+                    }
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsColMosquito) == 0
-                        || mem.PlayerData<int>(Offset.killsColWorm) == 0
-                        || mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0
-                        || store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 9
-                        || store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 6
-                        || store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) > 4;
+                        !shouldSplit
+                        && (mem.PlayerData<int>(Offset.killsColMosquito) == 0
+                            || mem.PlayerData<int>(Offset.killsColWorm) == 0
+                            || mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0
+                            || store.GetValueOnEntry(Offset.killsColMosquito) - mem.PlayerData<int>(Offset.killsColMosquito) > 9
+                            || store.GetValueOnEntry(Offset.killsColFlyingSentry) - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 6
+                            || store.GetValueOnEntry(Offset.killsColWorm) - mem.PlayerData<int>(Offset.killsColWorm) > 4);
                     break;
                 case SplitName.Silver12: // 1 × Heavy Fool, 1 × Winged Fool
-                    shouldSplit =
-                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 7
-                        && store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) == 5;
+                    {
+                        bool wingeds = store.CheckIncreasedSinceEntryBy(Offset.killsColFlyingSentry, -7);
+                        bool heavys = store.CheckIncreasedSinceEntryBy(Offset.killsColWorm, -5);
+                        shouldSplit = wingeds && heavys;
+                    }
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsColWorm) == 0
-                        || mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0
-                        || store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 7
-                        || store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) > 5;
+                        !shouldSplit
+                        && (mem.PlayerData<int>(Offset.killsColWorm) == 0
+                            || mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0
+                            || store.GetValueOnEntry(Offset.killsColFlyingSentry) - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 7
+                            || store.GetValueOnEntry(Offset.killsColWorm) - mem.PlayerData<int>(Offset.killsColWorm) > 5);
                     break;
                 case SplitName.Silver13: // 1 × Winged Fool, 3 × Squit
-                    shouldSplit =
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 12
-                        && store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 8;
+                    {
+                        bool squits = store.CheckIncreasedSinceEntryBy(Offset.killsColMosquito, -12);
+                        bool wingeds = store.CheckIncreasedSinceEntryBy(Offset.killsColFlyingSentry, -8);
+                        shouldSplit = squits && wingeds;
+                    }
                     shouldSkip =
                         mem.PlayerData<int>(Offset.killsColMosquito) == 0
                         || mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0
@@ -1685,32 +1700,37 @@ namespace LiveSplit.HollowKnight {
                         || store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 8;
                     break;
                 case SplitName.Silver14: // 3 × Winged Fool, 2 × Squit
-                    shouldSplit =
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 14
-                        && store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 11;
+                    {
+                        bool squits = store.CheckIncreasedSinceEntryBy(Offset.killsColMosquito, -14);
+                        bool wingeds = store.CheckIncreasedSinceEntryBy(Offset.killsColFlyingSentry, -11);
+                        shouldSplit = squits && wingeds;
+                    }
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsColMosquito) == 0
-                        || mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0
-                        || store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 14
-                        || store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 11;
+                        !shouldSplit
+                        && (mem.PlayerData<int>(Offset.killsColMosquito) == 0
+                            || mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0
+                            || store.GetValueOnEntry(Offset.killsColMosquito) - mem.PlayerData<int>(Offset.killsColMosquito) > 14
+                            || store.GetValueOnEntry(Offset.killsColFlyingSentry) - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 11);
                     break;
                 case SplitName.Silver15: // 9 × Obbles
                     shouldSplit =
-                        store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) == 9;
+                        store.CheckIncreasedSinceEntryBy(Offset.killsBlobble, -9);
                     shouldSkip =
-                        store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) > 9
-                        || mem.PlayerData<int>(Offset.killsBlobble) == 0;
+                        !shouldSplit
+                        && (store.GetValueOnEntry(Offset.killsBlobble) - mem.PlayerData<int>(Offset.killsBlobble) > 9
+                            || mem.PlayerData<int>(Offset.killsBlobble) == 0);
                     break;
                 case SplitName.Silver16: // 4 × Obbles
                     shouldSplit =
-                        store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) == 13;
+                        store.CheckIncreasedSinceEntryBy(Offset.killsBlobble, -13);
                     shouldSkip =
-                        store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) > 13
-                        || mem.PlayerData<int>(Offset.killsBlobble) == 0;
+                        !shouldSplit
+                        && (store.GetValueOnEntry(Offset.killsBlobble) - mem.PlayerData<int>(Offset.killsBlobble) > 13
+                            || mem.PlayerData<int>(Offset.killsBlobble) == 0);
                     break;
                 case SplitName.SilverEnd: // 2 × Oblobbles
                     shouldSplit =
-                        store.killsOblobbleStart - mem.PlayerData<int>(Offset.killsOblobble) == 2;
+                        store.CheckIncreasedSinceEntryBy(Offset.killsOblobble, -2);
                     shouldSkip =
                         mem.PlayerData<int>(Offset.killsOblobble) == 0
                         && currScene.StartsWith("Room_Colosseum_Silver")
