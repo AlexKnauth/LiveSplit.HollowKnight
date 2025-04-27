@@ -251,7 +251,7 @@ namespace LiveSplit.HollowKnight {
         }
 
         private bool MenuSplitHelper(bool pre) {
-            if (mem.GameState() is GameState.PLAYING or GameState.CUTSCENE) {
+            if (lastGameState is GameState.PLAYING or GameState.CUTSCENE) {
                 menuSplitHelper = pre;
             }
             return menuSplitHelper;
