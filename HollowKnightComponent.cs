@@ -121,15 +121,16 @@ namespace LiveSplit.HollowKnight {
 
         }
 #else
-		public HollowKnightComponent() {
-        mem = new HollowKnightMemory();
-        settings = new HollowKnightSettings();
-        foreach (string key in keys) {
-            currentValues[key] = "";
+        public HollowKnightComponent() {
+            mem = new HollowKnightMemory();
+            settings = new HollowKnightSettings();
+            foreach (string key in keys) {
+                currentValues[key] = "";
+            }
 
-        store.ResetKills();
+            // store.ResetKills();
 
-			}
+        }
 #endif
 
         public void GetValues() {
