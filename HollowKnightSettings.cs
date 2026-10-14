@@ -13,6 +13,7 @@ namespace LiveSplit.HollowKnight {
         public bool Ordered { get; set; }
         public bool AutosplitEndRuns { get; set; }
         public SplitName? AutosplitStartRuns { get; set; }
+        public bool PauseOnMainMenu { get; set; }
         public HitsMethod HitCounter { get; set; }
         public List<int> ComparisonHits { get; set; }
         private static ReaderWriterLockSlim isLoading = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
@@ -61,6 +62,7 @@ namespace LiveSplit.HollowKnight {
             chkOrdered.Checked = Ordered;
             chkAutosplitEndRuns.Checked = AutosplitEndRuns;
             chkAutosplitStartRuns.Checked = AutosplitStartRuns != null;
+            chkPauseOnMainMenu.Checked = PauseOnMainMenu;
 
             cboHitCounter.DataSource = GetHitCounters();
             MemberInfo hitCounterInfo = typeof(HitsMethod).GetMember(HitCounter.ToString())[0];
@@ -167,6 +169,7 @@ namespace LiveSplit.HollowKnight {
             AutosplitEndRuns = chkAutosplitEndRuns.Checked;
             AutosplitStartRuns = chkAutosplitStartRuns.Checked ?
                 HollowKnightSplitSettings.GetSplitName(cboStartTriggerName.Text) : null;
+            PauseOnMainMenu = chkPauseOnMainMenu.Checked;
 
             HitCounter = GetHitsMethod(cboHitCounter.Text);
 
@@ -197,6 +200,10 @@ namespace LiveSplit.HollowKnight {
             XmlElement xmlAutosplitStartRuns = document.CreateElement("AutosplitStartRuns");
             xmlAutosplitStartRuns.InnerText = AutosplitStartRuns.ToString();
             xmlSettings.AppendChild(xmlAutosplitStartRuns);
+
+            XmlElement xmlPauseOnMainMenu = document.CreateElement("PauseOnMainMenu");
+            xmlPauseOnMainMenu.InnerText = PauseOnMainMenu.ToString();
+            xmlSettings.AppendChild(xmlPauseOnMainMenu);
 
             XmlElement xmlHitCounter = document.CreateElement("HitCounter");
             xmlHitCounter.InnerText = HitCounter.ToString();
@@ -243,9 +250,11 @@ namespace LiveSplit.HollowKnight {
                 XmlNode orderedNode = settings.SelectSingleNode(".//Ordered");
                 XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns");
                 XmlNode AutosplitStartRunsNode = settings.SelectSingleNode(".//AutosplitStartRuns");
+                XmlNode PauseOnMainMenuNode = settings.SelectSingleNode(".//PauseOnMainMenu");
                 XmlNode HitCounterNode = settings.SelectSingleNode(".//HitCounter");
                 bool isOrdered = false;
                 bool isAutosplitEndRuns = false;
+                bool isPauseOnMainMenu = false;
 
                 if (orderedNode != null) {
                     bool.TryParse(orderedNode.InnerText, out isOrdered);
@@ -264,8 +273,12 @@ namespace LiveSplit.HollowKnight {
                         chkAutosplitStartRuns.Checked = true;
                     }
                 }
+                if (PauseOnMainMenuNode != null) {
+                    bool.TryParse(PauseOnMainMenuNode.InnerText, out isPauseOnMainMenu);
+                }
                 Ordered = isOrdered;
                 AutosplitEndRuns = isAutosplitEndRuns;
+                PauseOnMainMenu = isPauseOnMainMenu;
 
                 if (HitCounterNode != null) {
                     string hitCounterDescription = HitCounterNode.InnerText.Trim();
@@ -297,6 +310,13 @@ namespace LiveSplit.HollowKnight {
                 bool afterStart = false;
                 Ordered = true;
                 AutosplitEndRuns = true;
+
+                XmlNode pauseOnMainMenuNode = settings.SelectSingleNode(".//CustomSettings/Setting[@id='pause_on_main_menu']");
+                bool isPauseOnMainMenu = false;
+                if (pauseOnMainMenuNode != null) {
+                    bool.TryParse(pauseOnMainMenuNode.InnerText, out isPauseOnMainMenu);
+                }
+                PauseOnMainMenu = isPauseOnMainMenu;
 
                 XmlNode hitCounterNode = settings.SelectSingleNode(".//CustomSettings/Setting[@id='hit_counter']");
                 if (hitCounterNode != null) {
@@ -344,6 +364,7 @@ namespace LiveSplit.HollowKnight {
                 // no splits settings, default
                 Ordered = false;
                 AutosplitEndRuns = false;
+                PauseOnMainMenu = false;
                 Splits.Clear();
             }
 
@@ -454,6 +475,10 @@ namespace LiveSplit.HollowKnight {
         }
 
         private void cboStartTriggerName_SelectedIndexChanged(object sender, EventArgs e) {
+            UpdateSplits();
+        }
+
+        private void PauseOnMainMenuChanged(object sender, EventArgs e) {
             UpdateSplits();
         }
 

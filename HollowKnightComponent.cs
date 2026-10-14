@@ -220,6 +220,10 @@ namespace LiveSplit.HollowKnight {
                     && (loadingMenu || (uIState != UIState.PAUSED && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms")))
                     && nextScene != sceneName)
                 || (mem.TileMapDirty() && !mem.UsesSceneTransitionRoutine())
+                || (settings.PauseOnMainMenu
+                    && gameState is GameState.MAIN_MENU
+                    && uIState is UIState.MENU_HOME or UIState.MENU_OPTIONS or UIState.MENU_PROFILES
+                    && sceneName == "Menu_Title")
                 /* comment below parts out for release
                 || (mem.MenuState() == MainMenuState.EXIT_PROMPT && mem.GameState() == GameState.PAUSED && uIState == UIState.PAUSED
                     && (mem.CameraMode() is CameraMode.FROZEN or CameraMode.FOLLOWING) && (mem.GetCameraTargetMode() is TargetMode.FREE or TargetMode.FOLLOW_HERO))
