@@ -7,8 +7,11 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using LiveSplit.Model;
 namespace LiveSplit.HollowKnight {
     public partial class HollowKnightSettings : UserControl {
+        private static bool hasAskedPauseOnMainMenu = false;
+        public TimerModel Model { get; set; }
         public List<SplitName> Splits { get; private set; }
         public bool Ordered { get; set; }
         public bool AutosplitEndRuns { get; set; }
@@ -368,7 +371,59 @@ namespace LiveSplit.HollowKnight {
                 Splits.Clear();
             }
 
+            HandleAskPauseOnMainMenu();
+
             isLoading.ExitWriteLock();
+        }
+
+        public void HandleAskPauseOnMainMenu() {
+            if (Model != null && Model.CurrentState.CurrentPhase is TimerPhase.NotRunning && !hasAskedPauseOnMainMenu) {
+                hasAskedPauseOnMainMenu = true;
+                bool isAllGlitches = false;
+                bool isNMG = false;
+                bool isNMMS = false;
+
+                foreach (var v in Model.CurrentState.Run.Metadata.VariableValueNames.Values) {
+                    if (v.Contains("All Glitches") || v.Contains("Fast")) {
+                        isAllGlitches = true;
+                        break;
+                    } else if (v.Contains("No Major Glitches") || v.Contains("NMG") || v.Contains("Slow")) {
+                        isNMG = true;
+                        break;
+                    } else if (v.Contains("No Main Menu Storage") || v.Contains("NMMS")) {
+                        isNMMS = true;
+                        break;
+                    }
+                }
+
+                if (PauseOnMainMenu && isAllGlitches) {
+                    var askOffMessage = MessageBox.Show(
+                        "Hollow Knight All Glitches rules require the \"Pause on Main Menu\" setting to be turned Off.\n" +
+                        "That setting is currently On.\n" +
+                        "Would you like to turn that setting Off?",
+                        "LiveSplit | Hollow Knight",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                    );
+
+                    if (askOffMessage == DialogResult.Yes) {
+                        PauseOnMainMenu = false;
+                        chkPauseOnMainMenu.Checked = false;
+                    }
+                } else if (!PauseOnMainMenu && (isNMG || isNMMS)) {
+                    var askOnMessage = MessageBox.Show(
+                        "Hollow Knight " + (isNMG ? "NMG" : "NMMS") + " rules allow the \"Pause on Main Menu\" setting to be turned On.\n" +
+                        "That setting is currently Off.\n" +
+                        "Would you like to turn that setting On?",
+                        "LiveSplit | Hollow Knight",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                    );
+
+                    if (askOnMessage == DialogResult.Yes) {
+                        PauseOnMainMenu = true;
+                        chkPauseOnMainMenu.Checked = true;
+                    }
+                }
+            }
         }
 
         private HollowKnightSplitSettings createSetting() {

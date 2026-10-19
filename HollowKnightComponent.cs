@@ -13,6 +13,7 @@ using System.Xml;
 namespace LiveSplit.HollowKnight {
 #if !Info
     public class HollowKnightComponent : IComponent {
+        private static bool hasAskedGameTime = false;
         public TimerModel Model { get; set; }
 #else
 	public class HollowKnightComponent {
@@ -102,7 +103,8 @@ namespace LiveSplit.HollowKnight {
                 state.Run.Metadata.SetCustomVariable("comparison hits", TimeFormatConstants.DASH);
                 state.Run.Metadata.SetCustomVariable("delta hits", TimeFormatConstants.DASH);
 
-                if (state.CurrentTimingMethod == TimingMethod.RealTime) {
+                if (state.CurrentTimingMethod == TimingMethod.RealTime && !hasAskedGameTime) {
+                    hasAskedGameTime = true;
                     var timingMessage = MessageBox.Show(
                         "Hollow Knight uses Time without Loads (Game Time) as the main timing method.\n" +
                         "LiveSplit is currently set to show Real Time (RTA).\n" +
@@ -115,6 +117,8 @@ namespace LiveSplit.HollowKnight {
                         state.CurrentTimingMethod = TimingMethod.GameTime;
                     }
                 }
+                
+                settings.Model = Model;
             }
 
             store.ResetKills();
